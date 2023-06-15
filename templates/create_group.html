@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin-top: 50px; margin-bottom: 50px;" class="container">
+    <h2 style="text-align: center; padding: 30px;">Create Alert</h2>
+    {% for error in errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endfor %}
+    <a style="margin-bottom: 20px;" href="/work-order/{{admin_id}}/{{user_id}}/" class="btn btn-sm btn-success">Go Back</a>
+    <form action="/create-alert/{{admin_id}}/{{user_id}}/" method="post">
+        <div class="mb-3">
+            <label>Select Order</label>
+            <select id="select_order" name="select_order" class="selectpicker" required>
+                {% for order in result %}
+                    {% for ord in order %}
+                        <option value="{{ord.id}},{{ord.code}}">{{ord.code}} | {{ord.description}} | {{ord.status}}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Alert Description</label>
+            <input type="text" placeholder="alert description" name="alert_description" class="form-control" required>
+        </div>
+        <br>
+        <input type="submit" value="Create" class="btn btn-sm btn-primary mb-3" />
+    </form>
+</div>
+
+{% endblock content %}
