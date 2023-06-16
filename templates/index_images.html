@@ -2,44 +2,26 @@
 
 {% block content %}
 <div style="margin-top: 20px; margin-bottom: 50px;" class="container">
-    <h2 style="text-align: center; padding: 20px;">Images List</h2>
-    {% for error in errors %}
-        <div class="alert alert-success" role="alert">
-            {{ error }}
-        </div>
-    {% endfor %}
-
+    <h2 style="text-align: center; padding: 20px;">Images Gallery</h2>
     <div class="row">
         <div class="col-12">
             <form action="/upload_files/" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" accept=".jpg, .jpeg, .png">
-                <a style="float: right" href="/create_group/" class="btn btn-sm btn-primary">Create Group</a>
+                <input type="file" name="files" accept=".jpg, .jpeg, .png" multiple>
+                <a style="float: right; margin-right: 10px" class="btn btn-sm btn-primary" href="/group_list/">Group List</a>
+                <a style="float: right; margin-right: 10px" href="/create_group/" class="btn btn-sm btn-primary">Create Group</a>
                 <button style="float: right; margin-right: 10px" class="btn btn-sm btn-warning" type="submit">Upload</button>
             </form>
             <br>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Images</th>
-                        <th>Images Path</th>
-<!--                        <th width="100">Action</th>-->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for image_path in result %}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td><img src="{{ image_path }}" alt="image" width="60" height="60"></td>
-                            <td>{{ image_path }}</td>
-<!--                            <td>-->
-<!--                                <a href="/delete_image/{{image_path}}" class="btn btn-sm btn-danger">Delete</a>-->
-<!--                            </td>-->
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for image_path in result %}
+                <img src="{{ image_path }}" height="200px" width="200px">
+            {% endfor %}
         </div>
     </div>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock scripts %}
