@@ -1,27 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="margin-top: 20px; margin-bottom: 50px;" class="container">
-    <h2 style="text-align: center; padding: 20px;">Images Gallery</h2>
-    <div class="row">
-        <div class="col-12">
-            <form action="/upload_files/" method="post" enctype="multipart/form-data">
+    <h1 align=center style="margin-top: 20px">DMP Remote</h1>
+    <div>
+        <form align=center>
+            <button type="submit" name="command" value="next">Next</button>
+            <button type="submit" name="command" value="previous">Previous</button>
+            <button type="submit" name="command" value="zoom_in">Zoom In</button>
+            <button type="submit" name="command" value="zoom_out">Zoom Out</button>
+            <button type="submit" name="command" value="rotate">Rotate</button>
+        </form>
+    </div>
+    <h1 align="center" style="margin-top: 10px; margin-bottom: 10px">Gallery</h1>
+    <div class="col-12" style="text-align: center; padding: 0px 0px 40px 0px">
+        <form action="/upload_files/" method="post" enctype="multipart/form-data">
+            <div>
                 <input type="file" name="files" accept=".jpg, .jpeg, .png" multiple>
-                <a style="float: right; margin-right: 10px" class="btn btn-sm btn-primary" href="/group_list/">Group List</a>
-                <a style="float: right; margin-right: 10px" href="/create_group/" class="btn btn-sm btn-primary">Create Group</a>
-                <button style="float: right; margin-right: 10px" class="btn btn-sm btn-warning" type="submit">Upload</button>
-            </form>
-            <br>
-            {% for image_path in result %}
-                <img src="{{ image_path }}" height="200px" width="200px">
-            {% endfor %}
+                <button type="submit">Upload</button>
+            </div>
+            <div style="padding: 10px 0px 10px 0px; margin-top: 20px">
+                <button type="submit"><a style="text-align: center; text-decoration: none; color: black"
+                                         href="/create_group/">Create Group</a></button>
+                <button type="submit"><a style="text-align: center; text-decoration: none; color: black"
+                                         href="/group_list/">Group List</a></button>
+            </div>
+        </form>
+        <div class="">
+            <input type="checkbox" name="file_name">
+            <label>file name</label>
+            <input type="checkbox" name="file_name">
+            <label>file name</label>
+            <input type="checkbox" name="file_name">
+            <label>file name</label>
         </div>
     </div>
-</div>
+    <div class="gallery">
+        {% for image_path in result %}
+            <div class="thumbnail">
+                <img src="{{ image_path }}" alt="{{ image_file }}">
+                <div class="thumbnail-overlay">
+                    <a href="{{ image_path }}" target="_blank">View</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
 {% endblock content %}
 
-{% block scripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-{% endblock scripts %}
+
